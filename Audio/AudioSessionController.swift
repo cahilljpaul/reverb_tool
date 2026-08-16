@@ -47,4 +47,15 @@ final class AudioSessionController {
             safeOutputTypes.contains(output.portType)
         }
     }
+
+    func selectBluetoothInput() throws -> Bool {
+        guard let input = session.availableInputs?.first(where: {
+            $0.portType == .bluetoothHFP || $0.portType == .bluetoothLE
+        }) else {
+            return false
+        }
+
+        try session.setPreferredInput(input)
+        return true
+    }
 }

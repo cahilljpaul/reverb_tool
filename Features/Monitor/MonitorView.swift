@@ -11,6 +11,7 @@ struct MonitorView: View {
             ScrollView {
                 VStack(spacing: 16) {
                     statusCard
+                    recordingCard
                     presetCard
                     reverbCard
                     tremoloCard
@@ -39,6 +40,25 @@ struct MonitorView: View {
                     .background(viewModel.isMonitoring ? Color.red : Color.green)
                     .foregroundStyle(.white)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
+            }
+
+            HStack(spacing: 12) {
+                Button(action: viewModel.toggleRecording) {
+                    Label(
+                        viewModel.isRecording ? "Stop Recording" : "Record",
+                        systemImage: viewModel.isRecording ? "stop.circle.fill" : "record.circle"
+                    )
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(viewModel.isRecording ? .red : .blue)
+                .disabled(!viewModel.isMonitoring)
+
+                Button(action: viewModel.selectBluetoothInput) {
+                    Image(systemName: "mic.and.signal.meter")
+                }
+                .buttonStyle(.bordered)
+                .accessibilityLabel("Use paired Bluetooth microphone")
+                .disabled(!viewModel.isMonitoring)
             }
 
             Text(viewModel.routeDescription)
@@ -73,6 +93,43 @@ struct MonitorView: View {
                 Text(error)
                     .font(.footnote)
                     .foregroundStyle(.red)
+            }
+        }
+        .padding()
+        .background(.background)
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+    }
+
+    private var recordingCard: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Recordings")
+                .font(.headline)
+
+            if viewModel.recordings.isEmpty {
+                Text("No recordings yet")
+                    .foregroundStyle(.secondary)
+            } else {
+                ForEach(viewModel.recordings, id: \.self) { recording in
+                    HStack {
+                        Text(recording.deletingPathExtension().lastPathComponent)
+                            .lineLimit(1)
+
+                        Spacer()
+
+                        ShareLink(item: recording) {
+                            Image(systemName: "square.and.arrow.up")
+                        }
+                        .accessibilityLabel("Share recording")
+
+                        Button {
+                            viewModel.deleteRecording(recording)
+                        } label: {
+                            Image(systemName: "trash")
+                        }
+                        .accessibilityLabel("Delete recording")
+                        .tint(.red)
+                    }
+                }
             }
         }
         .padding()

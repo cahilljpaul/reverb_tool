@@ -3,11 +3,14 @@ import Foundation
 
 enum LiveMonitorEngineError: LocalizedError {
     case unsafeOutputRoute
+    case recordingRequiresMonitoring
 
     var errorDescription: String? {
         switch self {
         case .unsafeOutputRoute:
             return "Connect headphones or another private output before starting monitoring."
+        case .recordingRequiresMonitoring:
+            return "Start monitoring before recording."
         }
     }
 }
@@ -32,9 +35,12 @@ final class LiveMonitorEngine {
     private var tremoloRateHz: Float = 3.6
     private var tremoloDepth: Float = 0.3
     private var tremoloMonitorGain: Float = 0.9
+    private var recordingFile: AVAudioFile?
+    private var recordingURL: URL?
 
     var onMeterUpdate: ((Float, Float, Bool) -> Void)?
     var onRouteChanged: (() -> Void)?
+    var onRecordingFinished: ((URL) -> Void)?
 
     init(initialBackend: TremoloBackend = .native) {
         selectedBackend = initialBackend
@@ -84,9 +90,48 @@ final class LiveMonitorEngine {
     }
 
     func stop() {
+        stopRecording()
         tremolo.stop()
         engine.stop()
         try? sessionController.deactivate()
+    }
+
+    var isRecording: Bool {
+        recordingFile != nil
+    }
+
+    func startRecording() throws {
+        guard engine.isRunning else {
+            throw LiveMonitorEngineError.recordingRequiresMonitoring
+        }
+
+        guard recordingFile == nil else { return }
+
+        let recordingsDirectory = try Self.recordingsDirectory()
+        let url = recordingsDirectory.appendingPathComponent(
+            "Reverb Tool \(Self.recordingDateFormatter.string(from: Date())).caf"
+        )
+        let format = reverb.node.outputFormat(forBus: 0)
+
+        recordingFile = try AVAudioFile(
+            forWriting: url,
+            settings: format.settings,
+            commonFormat: format.commonFormat,
+            interleaved: format.isInterleaved
+        )
+        recordingURL = url
+    }
+
+    func stopRecording() {
+        guard let recordingURL else { return }
+
+        recordingFile = nil
+        self.recordingURL = nil
+        onRecordingFinished?(recordingURL)
+    }
+
+    func selectBluetoothInput() throws -> Bool {
+        try sessionController.selectBluetoothInput()
     }
 
     func setInputGain(_ value: Float) {
@@ -238,6 +283,7 @@ final class LiveMonitorEngine {
 
         reverb.node.installTap(onBus: 0, bufferSize: 512, format: inputFormat) { [weak self] buffer, _ in
             guard let self else { return }
+            try? self.recordingFile?.write(from: buffer)
             let (outputLevel, outputClip) = Self.extractLevelAndClip(from: buffer)
             self.meterQueue.async {
                 self.latestOutputLevel = outputLevel
@@ -286,6 +332,24 @@ final class LiveMonitorEngine {
 
         return (normalized, clip)
     }
+
+    private static func recordingsDirectory() throws -> URL {
+        let directory = try FileManager.default.url(
+            for: .documentDirectory,
+            in: .userDomainMask,
+            appropriateFor: nil,
+            create: true
+        ).appendingPathComponent("Recordings", isDirectory: true)
+
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        return directory
+    }
+
+    private static let recordingDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
+        return formatter
+    }()
 
     private func handleAudioRouteChange() {
         onRouteChanged?()
