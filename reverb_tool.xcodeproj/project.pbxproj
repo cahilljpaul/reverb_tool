@@ -7,17 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		11D658C8300BA9F7009F4662 /* PresetStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D658C4300BA9F7009F4662 /* PresetStore.swift */; };
-		11D658C9300BA9F7009F4662 /* TremoloProcessorAudioKitScaffold.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D658B9300BA9F7009F4662 /* TremoloProcessorAudioKitScaffold.swift */; };
-		11D658CA300BA9F7009F4662 /* LiveMonitorEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D658BC300BA9F7009F4662 /* LiveMonitorEngine.swift */; };
-		11D658CB300BA9F7009F4662 /* ReverbProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D658B6300BA9F7009F4662 /* ReverbProcessor.swift */; };
-		11D658CC300BA9F7009F4662 /* EffectPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D658BE300BA9F7009F4662 /* EffectPreset.swift */; };
-		11D658CD300BA9F7009F4662 /* TremoloBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D658B7300BA9F7009F4662 /* TremoloBackend.swift */; };
-		11D658CE300BA9F7009F4662 /* ReverbToolApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D658B4300BA9F7009F4662 /* ReverbToolApp.swift */; };
-		11D658CF300BA9F7009F4662 /* MonitorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D658C2300BA9F7009F4662 /* MonitorViewModel.swift */; };
-		11D658D0300BA9F7009F4662 /* AudioSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D658BB300BA9F7009F4662 /* AudioSessionController.swift */; };
-		11D658D1300BA9F7009F4662 /* TremoloProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D658B8300BA9F7009F4662 /* TremoloProcessor.swift */; };
-		11D658D2300BA9F7009F4662 /* MonitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D658C1300BA9F7009F4662 /* MonitorView.swift */; };
+		11D658C8300BA9F7009F4662 /* Features/Presets/PresetStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D658C4300BA9F7009F4662 /* Features/Presets/PresetStore.swift */; };
+		11D658C9300BA9F7009F4662 /* Audio/Effects/TremoloProcessorAudioKitScaffold.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D658B9300BA9F7009F4662 /* Audio/Effects/TremoloProcessorAudioKitScaffold.swift */; };
+		11D658CA300BA9F7009F4662 /* Audio/LiveMonitorEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D658BC300BA9F7009F4662 /* Audio/LiveMonitorEngine.swift */; };
+		11D658CB300BA9F7009F4662 /* Audio/Effects/ReverbProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D658B6300BA9F7009F4662 /* Audio/Effects/ReverbProcessor.swift */; };
+		11D658CC300BA9F7009F4662 /* Core/Models/EffectPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D658BE300BA9F7009F4662 /* Core/Models/EffectPreset.swift */; };
+		11D658CD300BA9F7009F4662 /* Audio/Effects/TremoloBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D658B7300BA9F7009F4662 /* Audio/Effects/TremoloBackend.swift */; };
+		11D658CE300BA9F7009F4662 /* App/ReverbToolApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D658B4300BA9F7009F4662 /* App/ReverbToolApp.swift */; };
+		11D658CF300BA9F7009F4662 /* Features/Monitor/MonitorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D658C2300BA9F7009F4662 /* Features/Monitor/MonitorViewModel.swift */; };
+		11D658D0300BA9F7009F4662 /* Audio/AudioSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D658BB300BA9F7009F4662 /* Audio/AudioSessionController.swift */; };
+		11D658D1300BA9F7009F4662 /* Audio/Effects/TremoloProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D658B8300BA9F7009F4662 /* Audio/Effects/TremoloProcessor.swift */; };
+		11D658D2300BA9F7009F4662 /* Features/Monitor/MonitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D658C1300BA9F7009F4662 /* Features/Monitor/MonitorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,17 +41,17 @@
 		11AA5630300BA72000382091 /* reverb_tool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = reverb_tool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11AA563D300BA72100382091 /* reverb_toolTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = reverb_toolTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		11AA5647300BA72100382091 /* reverb_toolUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = reverb_toolUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		11D658B4300BA9F7009F4662 /* ReverbToolApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App/ReverbToolApp.swift; sourceTree = "<group>"; };
-		11D658B6300BA9F7009F4662 /* ReverbProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio/Effects/ReverbProcessor.swift; sourceTree = "<group>"; };
-		11D658B7300BA9F7009F4662 /* TremoloBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio/Effects/TremoloBackend.swift; sourceTree = "<group>"; };
-		11D658B8300BA9F7009F4662 /* TremoloProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio/Effects/TremoloProcessor.swift; sourceTree = "<group>"; };
-		11D658B9300BA9F7009F4662 /* TremoloProcessorAudioKitScaffold.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio/Effects/TremoloProcessorAudioKitScaffold.swift; sourceTree = "<group>"; };
-		11D658BB300BA9F7009F4662 /* AudioSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio/AudioSessionController.swift; sourceTree = "<group>"; };
-		11D658BC300BA9F7009F4662 /* LiveMonitorEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio/LiveMonitorEngine.swift; sourceTree = "<group>"; };
-		11D658BE300BA9F7009F4662 /* EffectPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/Models/EffectPreset.swift; sourceTree = "<group>"; };
-		11D658C1300BA9F7009F4662 /* MonitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Monitor/MonitorView.swift; sourceTree = "<group>"; };
-		11D658C2300BA9F7009F4662 /* MonitorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Monitor/MonitorViewModel.swift; sourceTree = "<group>"; };
-		11D658C4300BA9F7009F4662 /* PresetStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Presets/PresetStore.swift; sourceTree = "<group>"; };
+		11D658B4300BA9F7009F4662 /* App/ReverbToolApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App/ReverbToolApp.swift; sourceTree = "<group>"; };
+		11D658B6300BA9F7009F4662 /* Audio/Effects/ReverbProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio/Effects/ReverbProcessor.swift; sourceTree = "<group>"; };
+		11D658B7300BA9F7009F4662 /* Audio/Effects/TremoloBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio/Effects/TremoloBackend.swift; sourceTree = "<group>"; };
+		11D658B8300BA9F7009F4662 /* Audio/Effects/TremoloProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio/Effects/TremoloProcessor.swift; sourceTree = "<group>"; };
+		11D658B9300BA9F7009F4662 /* Audio/Effects/TremoloProcessorAudioKitScaffold.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio/Effects/TremoloProcessorAudioKitScaffold.swift; sourceTree = "<group>"; };
+		11D658BB300BA9F7009F4662 /* Audio/AudioSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio/AudioSessionController.swift; sourceTree = "<group>"; };
+		11D658BC300BA9F7009F4662 /* Audio/LiveMonitorEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio/LiveMonitorEngine.swift; sourceTree = "<group>"; };
+		11D658BE300BA9F7009F4662 /* Core/Models/EffectPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/Models/EffectPreset.swift; sourceTree = "<group>"; };
+		11D658C1300BA9F7009F4662 /* Features/Monitor/MonitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Monitor/MonitorView.swift; sourceTree = "<group>"; };
+		11D658C2300BA9F7009F4662 /* Features/Monitor/MonitorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Monitor/MonitorViewModel.swift; sourceTree = "<group>"; };
+		11D658C4300BA9F7009F4662 /* Features/Presets/PresetStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Presets/PresetStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -97,6 +97,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1150E6CF3031A0EB00C61B45 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				11D658C4300BA9F7009F4662 /* Features/Presets/PresetStore.swift */,
+				11D658B9300BA9F7009F4662 /* Audio/Effects/TremoloProcessorAudioKitScaffold.swift */,
+				11D658BC300BA9F7009F4662 /* Audio/LiveMonitorEngine.swift */,
+				11D658B6300BA9F7009F4662 /* Audio/Effects/ReverbProcessor.swift */,
+				11D658BE300BA9F7009F4662 /* Core/Models/EffectPreset.swift */,
+				11D658B7300BA9F7009F4662 /* Audio/Effects/TremoloBackend.swift */,
+				11D658B4300BA9F7009F4662 /* App/ReverbToolApp.swift */,
+				11D658C2300BA9F7009F4662 /* Features/Monitor/MonitorViewModel.swift */,
+				11D658BB300BA9F7009F4662 /* Audio/AudioSessionController.swift */,
+				11D658B8300BA9F7009F4662 /* Audio/Effects/TremoloProcessor.swift */,
+				11D658C1300BA9F7009F4662 /* Features/Monitor/MonitorView.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		11AA5627300BA72000382091 = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +122,7 @@
 				11AA5640300BA72100382091 /* reverb_toolTests */,
 				11AA564A300BA72100382091 /* reverb_toolUITests */,
 				11AA5631300BA72000382091 /* Products */,
+				1150E6CF3031A0EB00C61B45 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -115,42 +134,6 @@
 				11AA5647300BA72100382091 /* reverb_toolUITests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		11D658BA300BA9F7009F4662 /* Effects */ = {
-			isa = PBXGroup;
-			children = (
-				11D658B6300BA9F7009F4662 /* ReverbProcessor.swift */,
-				11D658B7300BA9F7009F4662 /* TremoloBackend.swift */,
-				11D658B8300BA9F7009F4662 /* TremoloProcessor.swift */,
-				11D658B9300BA9F7009F4662 /* TremoloProcessorAudioKitScaffold.swift */,
-			);
-			path = Effects;
-			sourceTree = "<group>";
-		};
-		11D658BF300BA9F7009F4662 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				11D658BE300BA9F7009F4662 /* EffectPreset.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		11D658C3300BA9F7009F4662 /* Monitor */ = {
-			isa = PBXGroup;
-			children = (
-				11D658C1300BA9F7009F4662 /* MonitorView.swift */,
-				11D658C2300BA9F7009F4662 /* MonitorViewModel.swift */,
-			);
-			path = Monitor;
-			sourceTree = "<group>";
-		};
-		11D658C5300BA9F7009F4662 /* Presets */ = {
-			isa = PBXGroup;
-			children = (
-				11D658C4300BA9F7009F4662 /* PresetStore.swift */,
-			);
-			path = Presets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -297,17 +280,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11D658C8300BA9F7009F4662 /* PresetStore.swift in Sources */,
-				11D658C9300BA9F7009F4662 /* TremoloProcessorAudioKitScaffold.swift in Sources */,
-				11D658CA300BA9F7009F4662 /* LiveMonitorEngine.swift in Sources */,
-				11D658CB300BA9F7009F4662 /* ReverbProcessor.swift in Sources */,
-				11D658CC300BA9F7009F4662 /* EffectPreset.swift in Sources */,
-				11D658CD300BA9F7009F4662 /* TremoloBackend.swift in Sources */,
-				11D658CE300BA9F7009F4662 /* ReverbToolApp.swift in Sources */,
-				11D658CF300BA9F7009F4662 /* MonitorViewModel.swift in Sources */,
-				11D658D0300BA9F7009F4662 /* AudioSessionController.swift in Sources */,
-				11D658D1300BA9F7009F4662 /* TremoloProcessor.swift in Sources */,
-				11D658D2300BA9F7009F4662 /* MonitorView.swift in Sources */,
+				11D658C8300BA9F7009F4662 /* Features/Presets/PresetStore.swift in Sources */,
+				11D658C9300BA9F7009F4662 /* Audio/Effects/TremoloProcessorAudioKitScaffold.swift in Sources */,
+				11D658CA300BA9F7009F4662 /* Audio/LiveMonitorEngine.swift in Sources */,
+				11D658CB300BA9F7009F4662 /* Audio/Effects/ReverbProcessor.swift in Sources */,
+				11D658CC300BA9F7009F4662 /* Core/Models/EffectPreset.swift in Sources */,
+				11D658CD300BA9F7009F4662 /* Audio/Effects/TremoloBackend.swift in Sources */,
+				11D658CE300BA9F7009F4662 /* App/ReverbToolApp.swift in Sources */,
+				11D658CF300BA9F7009F4662 /* Features/Monitor/MonitorViewModel.swift in Sources */,
+				11D658D0300BA9F7009F4662 /* Audio/AudioSessionController.swift in Sources */,
+				11D658D1300BA9F7009F4662 /* Audio/Effects/TremoloProcessor.swift in Sources */,
+				11D658D2300BA9F7009F4662 /* Features/Monitor/MonitorView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,9 +450,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8QVJJ43R4R;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+                                INFOPLIST_KEY_NSMicrophoneUsageDescription = "Reverb Tool uses the microphone to process and monitor live audio.";
+                                INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -494,9 +479,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8QVJJ43R4R;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+                                INFOPLIST_KEY_NSMicrophoneUsageDescription = "Reverb Tool uses the microphone to process and monitor live audio.";
+                                INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -514,14 +501,13 @@
 			};
 			name = Release;
 		};
-		11AA5655300BA72100382091 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+                11AA5655300BA72100382091 /* Debug */ = {
+                        isa = XCBuildConfiguration;
+                        buildSettings = {
+                                BUNDLE_LOADER = "$(TEST_HOST)";
+                                CODE_SIGN_STYLE = Automatic;
+                                CURRENT_PROJECT_VERSION = 1;
+                                GENERATE_INFOPLIST_FILE = YES;						IPHONEOS_DEPLOYMENT_TARGET = 18.4;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "a.reverb-toolTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -532,14 +518,13 @@
 			};
 			name = Debug;
 		};
-		11AA5656300BA72100382091 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+                11AA5656300BA72100382091 /* Release */ = {
+                        isa = XCBuildConfiguration;
+                        buildSettings = {
+                                BUNDLE_LOADER = "$(TEST_HOST)";
+                                CODE_SIGN_STYLE = Automatic;
+                                CURRENT_PROJECT_VERSION = 1;
+                                GENERATE_INFOPLIST_FILE = YES;						IPHONEOS_DEPLOYMENT_TARGET = 18.4;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "a.reverb-toolTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -550,13 +535,12 @@
 			};
 			name = Release;
 		};
-		11AA5658300BA72100382091 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
+                11AA5658300BA72100382091 /* Debug */ = {
+                        isa = XCBuildConfiguration;
+                        buildSettings = {
+                                CODE_SIGN_STYLE = Automatic;
+                                CURRENT_PROJECT_VERSION = 1;
+                                GENERATE_INFOPLIST_FILE = YES;						MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "a.reverb-toolUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -572,8 +556,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "a.reverb-toolUITests";
+                                MARKETING_VERSION = 1.0;				PRODUCT_BUNDLE_IDENTIFIER = "a.reverb-toolUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
