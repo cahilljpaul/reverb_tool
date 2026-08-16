@@ -9,7 +9,7 @@ struct MonitorView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: 16) {
+                VStack(spacing: 20) {
                     statusCard
                     recordingCard
                     presetCard
@@ -17,10 +17,13 @@ struct MonitorView: View {
                     tremoloCard
                     levelsCard
                 }
-                .padding(16)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 20)
             }
             .background(Color(.systemGroupedBackground))
             .navigationTitle("Reverb Tool")
+            .navigationBarTitleDisplayMode(.inline)
+            .tint(.teal)
         }
         .onAppear {
             viewModel.refreshRouteStatus()
@@ -29,17 +32,30 @@ struct MonitorView: View {
 
     private var statusCard: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Live Monitor")
-                .font(.headline)
+            HStack {
+                Label("Live Monitor", systemImage: "waveform")
+                    .font(.title3.weight(.semibold))
+
+                Spacer()
+
+                Text(viewModel.isMonitoring ? "LIVE" : "STANDBY")
+                    .font(.caption2.weight(.bold))
+                    .foregroundStyle(viewModel.isMonitoring ? .green : .secondary)
+                    .padding(.horizontal, 9)
+                    .padding(.vertical, 5)
+                    .background(viewModel.isMonitoring ? Color.green.opacity(0.14) : Color.secondary.opacity(0.12), in: Capsule())
+            }
 
             Button(action: viewModel.toggleMonitoring) {
-                Text(viewModel.isMonitoring ? "Stop Monitoring" : "Start Monitoring")
-                    .font(.headline)
+                Label(
+                    viewModel.isMonitoring ? "Stop Monitoring" : "Start Monitoring",
+                    systemImage: viewModel.isMonitoring ? "stop.fill" : "play.fill"
+                )
+                    .font(.headline.weight(.semibold))
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 14)
-                    .background(viewModel.isMonitoring ? Color.red : Color.green)
+                    .background(viewModel.isMonitoring ? Color.red : Color.teal, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
                     .foregroundStyle(.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
             }
 
             HStack(spacing: 12) {
@@ -61,9 +77,12 @@ struct MonitorView: View {
                 .disabled(!viewModel.isMonitoring)
             }
 
-            Text(viewModel.routeDescription)
-                .font(.subheadline)
+            Label(viewModel.routeDescription, systemImage: "antenna.radiowaves.left.and.right")
+                .font(.footnote)
                 .foregroundStyle(.secondary)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(10)
+                .background(Color.primary.opacity(0.05), in: RoundedRectangle(cornerRadius: 6, style: .continuous))
 
             Toggle("Require headphones/private output", isOn: $viewModel.enforceSafeRoute)
                 .toggleStyle(.switch)
@@ -95,9 +114,8 @@ struct MonitorView: View {
                     .foregroundStyle(.red)
             }
         }
-        .padding()
-        .background(.background)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .padding(16)
+        .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
     }
 
     private var recordingCard: some View {
@@ -132,9 +150,8 @@ struct MonitorView: View {
                 }
             }
         }
-        .padding()
-        .background(.background)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .padding(16)
+        .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
     }
 
     private var presetCard: some View {
@@ -164,9 +181,8 @@ struct MonitorView: View {
                 .buttonStyle(.bordered)
             }
         }
-        .padding()
-        .background(.background)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .padding(16)
+        .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
     }
 
     private var reverbCard: some View {
@@ -183,9 +199,8 @@ struct MonitorView: View {
             }
             .pickerStyle(.menu)
         }
-        .padding()
-        .background(.background)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .padding(16)
+        .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
     }
 
     private var tremoloCard: some View {
@@ -203,9 +218,8 @@ struct MonitorView: View {
             sliderRow(title: "Depth", value: $viewModel.tremoloDepth, range: 0...1, format: "%.2f")
             sliderRow(title: "Rate", value: $viewModel.tremoloRate, range: 0.1...12, format: "%.1f Hz")
         }
-        .padding()
-        .background(.background)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .padding(16)
+        .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
     }
 
     private var levelsCard: some View {
@@ -216,9 +230,8 @@ struct MonitorView: View {
             sliderRow(title: "Input Gain", value: $viewModel.inputGain, range: 0...2, format: "%.2f")
             sliderRow(title: "Monitor Level", value: $viewModel.monitorLevel, range: 0...1.5, format: "%.2f")
         }
-        .padding()
-        .background(.background)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .padding(16)
+        .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
     }
 
     private func sliderRow(

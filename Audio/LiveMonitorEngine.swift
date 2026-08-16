@@ -131,7 +131,11 @@ final class LiveMonitorEngine {
     }
 
     func selectBluetoothInput() throws -> Bool {
-        try sessionController.selectBluetoothInput()
+        let didSelectBluetooth = try sessionController.selectBluetoothInput()
+        guard didSelectBluetooth else { return false }
+
+        onRouteChanged?()
+        return true
     }
 
     func setInputGain(_ value: Float) {
@@ -229,6 +233,22 @@ final class LiveMonitorEngine {
         installMetering(inputFormat: inputFormat)
 
         graphBuilt = true
+    }
+
+    private func reconfigureGraphForCurrentRoute() {
+        guard graphBuilt else { return }
+
+        let inputFormat = engine.inputNode.inputFormat(forBus: 0)
+        engine.disconnectNodeInput(inputGainNode)
+        engine.disconnectNodeOutput(inputGainNode)
+        engine.disconnectNodeOutput(tremolo.node)
+        engine.disconnectNodeOutput(reverb.node)
+
+        engine.connect(engine.inputNode, to: inputGainNode, format: inputFormat)
+        engine.connect(inputGainNode, to: tremolo.node, format: inputFormat)
+        engine.connect(tremolo.node, to: reverb.node, format: inputFormat)
+        engine.connect(reverb.node, to: engine.mainMixerNode, format: inputFormat)
+        installMetering(inputFormat: inputFormat)
     }
 
     private func reconnectTremoloNode(from oldNode: AVAudioNode, to newNode: AVAudioNode) {
@@ -363,7 +383,9 @@ final class LiveMonitorEngine {
             do {
                 engine.stop()
                 try sessionController.configureForLiveMonitoring()
+                reconfigureGraphForCurrentRoute()
                 try engine.start()
+                tremolo.start()
             } catch {
                 stop()
             }

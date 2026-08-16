@@ -17,12 +17,12 @@ final class AudioSessionController {
     func configureForLiveMonitoring() throws {
         try session.setCategory(
             .playAndRecord,
-            mode: .measurement,
-            options: [.allowBluetooth, .allowBluetoothA2DP, .mixWithOthers]
+            mode: .voiceChat,
+            options: [.allowBluetooth]
         )
 
         try session.setPreferredSampleRate(48_000)
-        try session.setPreferredIOBufferDuration(0.0029)
+        try session.setPreferredIOBufferDuration(0.01)
         try session.setActive(true, options: .notifyOthersOnDeactivation)
     }
 
