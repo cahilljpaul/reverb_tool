@@ -20,6 +20,8 @@ final class LiveMonitorEngine {
     private let sessionController = AudioSessionController()
 
     private let inputGainNode = AVAudioMixerNode()
+    private let noiseGate = AVAudioMixerNode()
+    private var gateGain: Float = 1
     private var tremolo: TremoloProcessing
     private let reverb = ReverbProcessor()
 
@@ -35,6 +37,8 @@ final class LiveMonitorEngine {
     private var tremoloRateHz: Float = 3.6
     private var tremoloDepth: Float = 0.3
     private var tremoloMonitorGain: Float = 0.9
+    private var noiseGateEnabled = true
+    private var noiseGateThreshold: Float = -42
     private var recordingFile: AVAudioFile?
     private var recordingURL: URL?
 
@@ -142,6 +146,16 @@ final class LiveMonitorEngine {
         inputGainNode.outputVolume = min(max(value, 0), 2)
     }
 
+    func setNoiseGateEnabled(_ enabled: Bool) {
+        noiseGateEnabled = enabled
+        applyNoiseGateState()
+    }
+
+    func setNoiseGateThreshold(_ value: Float) {
+        noiseGateThreshold = min(max(value, -80), -10)
+        applyNoiseGateState()
+    }
+
     func setMonitorLevel(_ value: Float) {
         tremoloMonitorGain = value
         tremolo.setMonitorGain(value)
@@ -218,18 +232,23 @@ final class LiveMonitorEngine {
         let inputFormat = inputNode.inputFormat(forBus: 0)
 
         engine.attach(inputGainNode)
+        engine.attach(noiseGate)
         engine.attach(tremolo.node)
         engine.attach(reverb.node)
 
         inputGainNode.outputVolume = 1
 
         engine.connect(inputNode, to: inputGainNode, format: inputFormat)
-        engine.connect(inputGainNode, to: tremolo.node, format: inputFormat)
+        engine.connect(inputGainNode, to: noiseGate, format: inputFormat)
+        engine.connect(noiseGate, to: tremolo.node, format: inputFormat)
         engine.connect(tremolo.node, to: reverb.node, format: inputFormat)
         engine.connect(reverb.node, to: engine.mainMixerNode, format: inputFormat)
 
+        applyNoiseGateState()
+        installNoiseGate(inputFormat: inputFormat)
         applyTremoloState()
 
+        installNoiseGate(inputFormat: inputFormat)
         installMetering(inputFormat: inputFormat)
 
         graphBuilt = true
@@ -241,13 +260,16 @@ final class LiveMonitorEngine {
         let inputFormat = engine.inputNode.inputFormat(forBus: 0)
         engine.disconnectNodeInput(inputGainNode)
         engine.disconnectNodeOutput(inputGainNode)
+        engine.disconnectNodeOutput(noiseGate)
         engine.disconnectNodeOutput(tremolo.node)
         engine.disconnectNodeOutput(reverb.node)
 
         engine.connect(engine.inputNode, to: inputGainNode, format: inputFormat)
-        engine.connect(inputGainNode, to: tremolo.node, format: inputFormat)
+        engine.connect(inputGainNode, to: noiseGate, format: inputFormat)
+        engine.connect(noiseGate, to: tremolo.node, format: inputFormat)
         engine.connect(tremolo.node, to: reverb.node, format: inputFormat)
         engine.connect(reverb.node, to: engine.mainMixerNode, format: inputFormat)
+        installNoiseGate(inputFormat: inputFormat)
         installMetering(inputFormat: inputFormat)
     }
 
@@ -259,7 +281,8 @@ final class LiveMonitorEngine {
         engine.detach(oldNode)
 
         engine.attach(newNode)
-        engine.connect(inputGainNode, to: newNode, format: inputFormat)
+        engine.connect(inputGainNode, to: noiseGate, format: inputFormat)
+        engine.connect(noiseGate, to: newNode, format: inputFormat)
         engine.connect(newNode, to: reverb.node, format: inputFormat)
     }
 
@@ -272,6 +295,24 @@ final class LiveMonitorEngine {
         }
     }
 
+    private func applyNoiseGateState() {
+        guard !noiseGateEnabled else { return }
+        gateGain = 1
+        noiseGate.outputVolume = 1
+    }
+
+    private func installNoiseGate(inputFormat: AVAudioFormat) {
+        noiseGate.removeTap(onBus: 0)
+        noiseGate.installTap(onBus: 0, bufferSize: 512, format: inputFormat) { [weak self] buffer, _ in
+            guard let self else { return }
+
+            let level = Self.decibelLevel(from: buffer)
+            let targetGain: Float = self.noiseGateEnabled && level < self.noiseGateThreshold ? 0 : 1
+            let smoothing: Float = targetGain > self.gateGain ? 0.3 : 0.08
+            self.gateGain += smoothing * (targetGain - self.gateGain)
+            self.noiseGate.outputVolume = self.gateGain
+        }
+    }
     private func applyTremoloState() {
         tremolo.setRateHz(tremoloRateHz)
         tremolo.setDepth(tremoloDepth)
@@ -322,6 +363,20 @@ final class LiveMonitorEngine {
         }
     }
 
+    private static func decibelLevel(from buffer: AVAudioPCMBuffer) -> Float {
+        guard let channelData = buffer.floatChannelData, buffer.frameLength > 0 else {
+            return -80
+        }
+
+        let samples = channelData[0]
+        let frameCount = Int(buffer.frameLength)
+        var sum: Float = 0
+        for index in 0..<frameCount {
+            sum += samples[index] * samples[index]
+        }
+
+        return 20 * log10(max(sqrt(sum / Float(frameCount)), 0.000_01))
+    }
     private static func extractLevelAndClip(from buffer: AVAudioPCMBuffer) -> (level: Float, clip: Bool) {
         guard
             let channelData = buffer.floatChannelData,

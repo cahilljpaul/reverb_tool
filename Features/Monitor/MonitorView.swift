@@ -12,6 +12,7 @@ struct MonitorView: View {
                 VStack(spacing: 20) {
                     statusCard
                     recordingCard
+                    noiseGateCard
                     presetCard
                     reverbCard
                     tremoloCard
@@ -149,6 +150,30 @@ struct MonitorView: View {
                     }
                 }
             }
+        }
+        .padding(16)
+        .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+    }
+
+    private var noiseGateCard: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Label("Noise Gate", systemImage: "waveform.slash")
+                    .font(.headline)
+
+                Spacer()
+
+                Toggle("Noise Gate", isOn: $viewModel.noiseGateEnabled)
+                    .labelsHidden()
+            }
+
+            sliderRow(
+                title: "Threshold",
+                value: $viewModel.noiseGateThreshold,
+                range: -80 ... -10,
+                format: "%.0f dB"
+            )
+            .disabled(!viewModel.noiseGateEnabled)
         }
         .padding(16)
         .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
