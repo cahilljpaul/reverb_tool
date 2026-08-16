@@ -4,8 +4,8 @@ import Foundation
 @MainActor
 final class MonitorViewModel: ObservableObject {
     @Published var isMonitoring = false
-     var isRecording = false
-     var recordings: [URL] = []
+    @Published var isRecording = false
+    @Published var recordings: [URL] = []
     @Published var routeDescription = "Not active"
     @Published var showBluetoothLatencyWarning = false
     @Published var showUnsafeOutputWarning = false
@@ -31,12 +31,6 @@ final class MonitorViewModel: ObservableObject {
 
     @Published var monitorLevel: Float = 0.9 {
         didSet { engine.setMonitorLevel(monitorLevel) }
-    }
-    @Published var noiseGateEnabled = true {
-        didSet { engine.setNoiseGateEnabled(noiseGateEnabled) }
-    }
-    @Published var noiseGateThreshold: Float = -42 {
-        didSet { engine.setNoiseGateThreshold(noiseGateThreshold) }
     }
 
     @Published var reverbMix: Float = 35 {
@@ -219,8 +213,6 @@ final class MonitorViewModel: ObservableObject {
     private func applyCurrentValues() {
         engine.setInputGain(inputGain)
         engine.setMonitorLevel(monitorLevel)
-        engine.setNoiseGateEnabled(noiseGateEnabled)
-        engine.setNoiseGateThreshold(noiseGateThreshold)
         engine.setReverbMix(reverbMix)
         engine.setReverbPreset(reverbPreset)
         engine.setTremoloDepth(tremoloDepth)

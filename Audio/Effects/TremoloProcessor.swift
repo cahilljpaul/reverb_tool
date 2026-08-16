@@ -22,7 +22,7 @@ final class TremoloProcessor: TremoloProcessing {
     }
 
     func setMonitorGain(_ value: Float) {
-        monitorGain = min(max(value, 0), 1.5)
+        monitorGain = min(max(value, 0), 1.8)
     }
 
     func start() {
